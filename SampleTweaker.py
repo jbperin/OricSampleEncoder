@@ -154,12 +154,12 @@ def main(arguments):
                         , dest = 'samplerate'
                         )
     parser.add_argument('--subtype'
-                        , help="sampling frequency of audio file (only for RAW audio file)"
+                        , help="type of encoding (only for RAW audio file)"
                         , choices=['PCM_S8','PCM_16','PCM_24','PCM_32','PCM_U8','FLOAT','DOUBLE','ULAW','ALAW','GSM610','DWVW_12','DWVW_16','DWVW_24','VOX_ADPCM']
                         , dest = 'subtype'
                         )
     args = parser.parse_args(arguments)
-    print (args)
+
     if (not os.path.isfile(args.soundfile)): 
         print (f"ERROR: Unable to find input file {args.soundfile}")
         return 
@@ -174,10 +174,12 @@ def main(arguments):
 
     if (args.replayFrequency > 8000):
         print (f"ERROR: replay frequency higher then 8kHz are not possible on Oric. Check --rfreq value")
-
+        return 
+        
     processAudioFile(args)
 
 if __name__ == "__main__":
+    # main (['-h'])
     # main('SampleTweaker sexample_8k_u8pcm_mono.wav'.split()[1:])
     # main('SampleTweaker sexample_44k_f64_stereo.wav'.split()[1:])
     # main('SampleTweaker sexample_192kpbs_stereo.mp3'.split()[1:])
